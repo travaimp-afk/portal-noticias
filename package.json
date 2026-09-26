@@ -1,0 +1,10 @@
+{
+  "name": "portal-noticias",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/travaimp-afk/portal-noticias.git"
+  },
+  "type": "module"
+}
+  
