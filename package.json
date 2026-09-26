@@ -5,6 +5,8 @@
     "type": "git",
     "url": "git+https://github.com/travaimp-afk/portal-noticias.git"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
 }
-  
