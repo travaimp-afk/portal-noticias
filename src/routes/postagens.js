@@ -31,4 +31,29 @@ const postagem = postagens.find(p => p.id === Number(req.params.id));
   res.json(postagem);
 });
 
+//faz o post em tarefas
+router.post('/', (req, res) => {
+const { titulo, conteudo, categoria, autorId } = req.body;
+
+if (!titulo || !conteudo || !categoria || !autorId) {return res.status(400).json({ erro: 'titulo, conteudo, categoria e autorId é necessario' });
+}
+
+//aqui é a regra de negocio onde cada noticia pertence apenas a uma categoria
+if (Array.isArray(categoria)) {
+return res.status(400).json({ erro: 'uma postagem deve ter so uma categoria' });
+}
+
+const novaPostagem = {
+id: proximoId++,
+titulo,
+conteudo,
+categoria,
+autorId,
+dataPublicacao: new Date()
+};
+
+postagens.push(novaPostagem);
+res.status(201).json(novaPostagem);
+});
+
 export default router;

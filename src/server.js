@@ -4,6 +4,7 @@ import postagensRoutes from './routes/postagens.js';
 process.loadEnvFile();
 const app = express();
 const port = process.env.PORT || 3000;
+app.use(express.json())
 
 app.use('/postagens', postagensRoutes);
 
