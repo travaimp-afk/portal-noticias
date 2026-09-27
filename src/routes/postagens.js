@@ -56,4 +56,30 @@ postagens.push(novaPostagem);
 res.status(201).json(novaPostagem);
 });
 
+//faz o put no id de postagens
+router.put('/:id', (req, res) => {
+  const postagem = postagens.find(p => p.id === Number(req.params.id));
+
+  if (!postagem) {
+    return res.status(404).json({ erro: 'nao encontra a postagem' });
+  }
+
+   //regra de negócio só é permitido editar noticias até 30 minutos depois de postada
+  const minutosDesdePublicacao = (Date.now() - new Date(postagem.dataPublicacao)) / 1000 / 60;
+  if (minutosDesdePublicacao > 30) {
+    return res.status(403).json({ erro: '30 minutos para edicao, ja expirou' });
+  }
+
+  const { titulo, conteudo, categoria } = req.body;
+
+  //regra de negócio cada noticia só tem uma categoria
+  if (categoria && Array.isArray(categoria)) {
+    return res.status(400).json({ erro: 'a postagem só pode pertencer a uma categoria'});}
+
+  if (titulo) postagem.titulo = titulo;
+  if (conteudo) postagem.conteudo = conteudo;
+  if (categoria) postagem.categoria = categoria;
+
+  res.json(postagem);});
+
 export default router;
