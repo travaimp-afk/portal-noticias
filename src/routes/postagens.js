@@ -31,7 +31,7 @@ const postagem = postagens.find(p => p.id === Number(req.params.id));
   res.json(postagem);
 });
 
-//faz o post em tarefas
+//faz o post em tarefas da postagem, as postagens em si 
 router.post('/', (req, res) => {
 const { titulo, conteudo, categoria, autorId } = req.body;
 
@@ -81,5 +81,17 @@ router.put('/:id', (req, res) => {
   if (categoria) postagem.categoria = categoria;
 
   res.json(postagem);});
+
+  //deleta as postagens por id
+router.delete('/:id', (req, res) => {
+  const index = postagens.findIndex(p => p.id === Number(req.params.id));
+
+if (index === -1) {
+return res.status(404).json({ erro: 'Postagem não encontrada' });
+}
+
+postagens.splice(index, 1);
+res.status(204).send();
+});
 
 export default router;
