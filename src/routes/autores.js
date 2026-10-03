@@ -57,4 +57,15 @@ router.put('/:id', (req, res) => {
   res.json(autor);
 });
 
+router.delete('/:id', (req, res) => {
+  const index = autores.findIndex(a => a.id === Number(req.params.id));
+
+  if (index === -1) {
+    return res.status(404).json({ erro: 'autor nao encontrado' });
+  }
+
+  autores.splice(index, 1);
+  res.status(204).send();
+});
+
 export default router;
