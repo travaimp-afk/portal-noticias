@@ -40,4 +40,21 @@ router.post('/', (req, res) => {
   res.status(201).json(novoAutor);
 });
 
+router.put('/:id', (req, res) => {
+  const autor = autores.find(a => a.id === Number(req.params.id));
+
+  if (!autor) {
+    return res.status(404).json({ 
+      erro: 'autor nao encontrado' 
+    });
+  }
+
+  const { nome, email } = req.body;
+
+  if (nome) autor.nome = nome;
+  if (email) autor.email = email;
+
+  res.json(autor);
+});
+
 export default router;
