@@ -13,10 +13,31 @@ router.get('/:id', (req, res) => {
   const autor = autores.find(a => a.id === Number(req.params.id));
 
   if (!autor) {
-    return res.status(404).json({ erro: 'autor nao encontrado' });
+    return res.status(404).json({ 
+      erro: 'autor nao encontrado' 
+    });
   }
 
   res.json(autor);
+});
+
+router.post('/', (req, res) => {
+  const { nome, email } = req.body;
+
+  if (!nome || !email) {
+    return res.status(400).json({ 
+      erro: 'nome e email sao necessarios' 
+    });
+  }
+
+  const novoAutor = {
+    id: proximoId++,
+    nome,
+    email
+  };
+
+  autores.push(novoAutor);
+  res.status(201).json(novoAutor);
 });
 
 export default router;
