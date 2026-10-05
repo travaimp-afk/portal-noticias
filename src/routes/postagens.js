@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 const router = Router();
 
-let postagens = [];
+export let postagens = [];
 let proximoId = 1;
 
 //busca por texto
