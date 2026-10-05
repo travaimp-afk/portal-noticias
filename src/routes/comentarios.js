@@ -41,4 +41,15 @@ router.get('/', (req, res) => {
   res.json(comentarios);
 });
 
+router.delete('/:id', (req, res) => {
+  const index = comentarios.findIndex(c => c.id === Number(req.params.id));
+
+  if (index === -1) {
+    return res.status(404).json({ erro: 'comentario nao encontrado'});
+  }
+
+  comentarios.splice(index, 1);
+  res.status(204).send();
+});
+
 export default router;
