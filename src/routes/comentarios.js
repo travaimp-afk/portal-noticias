@@ -30,4 +30,15 @@ router.post('/', (req, res) => {
   res.status(201).json(novoComentario);
 });
 
+router.get('/', (req, res) => {
+  const { postagemId } = req.query;
+
+  if (postagemId) {
+    const resultado = comentarios.filter(c => c.postagemId === Number(postagemId));
+    return res.json(resultado);
+  }
+
+  res.json(comentarios);
+});
+
 export default router;
