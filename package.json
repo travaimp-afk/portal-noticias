@@ -5,6 +5,15 @@
     "type": "git",
     "url": "git+https://github.com/travaimp-afk/portal-noticias.git"
   },
+  "scripts":{
+     "db:up": "docker start portal-noticias || docker run -d --name portal-noticias -p 127.0.0.1:27017:27017 -v portal-noticias-data:/data/db mongo:8",
+    "db:down": "docker stop portal-noticias",
+    "db:logs": "docker logs -f portal-noticias",
+    "db:reset": "docker rm -f portal-noticias; docker volume rm portal-noticias-data",
+    "predev": "npm run db:up",
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js"
+  },
   "type": "module",
   "dependencies": {
     "express": "^5.2.1"
